@@ -1,0 +1,99 @@
+<html>
+  <head>
+  	<title>hotrend</title>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+  </head>
+  <body>
+  	<div id=title style="position: absolute; top:20px;left: 20px;text-align: center;
+  	font-size: 80px;color: white;
+  	font-family: 'Bangers', cursive;
+  	">LOOK AT CHAT!!</div>
+  	<div class="container" style="margin:0px !important;padding: 0px !important;">
+	    <canvas id="word_cloud" style="margin:0px;"></canvas>
+	</div>
+  </body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/wordcloud2.js"></script>
+<script type="text/javascript">
+
+	window.onload=init();
+
+	function init(){
+		title_box_init()
+		canvas_init();
+		wc_init();
+		chgbgc();
+	}
+
+	function title_box_init(){
+		var w=parseInt(window.innerWidth)-40;
+		$('#title').css('width',w+'px');
+		$('#title').css('height','150px');
+		$('#title').css('line-height','150px');
+		$('#title').css('border','8px solid white');
+
+		//$('#title').css('backgroundColor','gray');
+
+	}
+
+	function chgbgc(){
+		var canvas=document.getElementById('word_cloud');
+		var ctx=canvas.getContext('2d');
+		var my_gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+		my_gradient.addColorStop(0, '#518d97');
+		my_gradient.addColorStop(1, '#627488');
+		ctx.fillStyle = my_gradient;
+		ctx.fillRect(0,0,canvas.width,canvas.height);
+
+	}
+
+	function canvas_init(){
+		var canvas=document.getElementById('word_cloud');
+		canvas.width=window.innerWidth;
+		canvas.height=window.innerHeight;
+	}
+
+	function wc_init(){
+		if(!WordCloud.isSupported){
+			alert('fuck');return;
+		}
+		var list=[];
+		list.push(['오수진',200]);
+		list.push(['이정헌',30]);
+		list.push(['오수진',15]);
+		list.push(['이정헌',3]);
+		list.push(['이정헌',4]);
+		list.push(['이정헌',20]);
+		list.push(['이정헌',90]);
+		list.push(['이정헌',90]);
+		list.push(['오수진',90]);
+		list.push(['이정헌',90]);
+		list.push(['오수진',90]);
+		list.push(['이정헌',100]);
+		list.push(['오수진',66]);
+		list.push(['이정헌',77]);
+		list.push(['오수진',99]);
+		list.push(['이정헌',250]);
+		list.push(['이정헌',320]);
+		list.push(['오수진',180]);
+		WordCloud(document.getElementById('word_cloud'),
+			{
+				list:list,
+				color:'random-light',
+				backgroundColor:'#53818d',
+				minSize:1,
+				click:(item)=>{
+					if(item[2]!=undefined)
+						alert(item[2]);
+				},
+			});
+	}
+
+</script>
